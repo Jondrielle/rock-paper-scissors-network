@@ -1,0 +1,46 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 300
+  ClientWidth = 400
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Server: TLabel
+    Position.X = 8.000000000000000000
+    Text = 'Server'
+    TabOrder = 0
+  end
+  object Memo1: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Position.X = 8.000000000000000000
+    Position.Y = 152.000000000000000000
+    Size.Width = 392.000000000000000000
+    Size.Height = 88.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 388.000000000000000000
+    Viewport.Height = 84.000000000000000000
+  end
+  object StartServer: TButton
+    Position.X = 128.000000000000000000
+    Position.Y = 248.000000000000000000
+    Size.Width = 160.000000000000000000
+    Size.Height = 52.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = 'StartServer'
+    OnClick = StartServerClick
+  end
+  object IdTCPServer1: TIdTCPServer
+    Bindings = <>
+    DefaultPort = 6090
+    OnConnect = IdTCPServer1Connect
+    OnExecute = IdTCPServer1Execute
+    Left = 184
+    Top = 96
+  end
+end

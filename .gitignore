@@ -1,0 +1,19 @@
+#C++ Builder / Delphi
+*.exe
+*.dll
+*.dcu
+*.obj
+*.tds
+*.~*
+*.local
+*.identcache
+*.stat
+*.dsk
+*.map
+*.bak
+*.log
+*.tvsconfig
+*.identcache
+*.groupproj.local
+__history/
+__recovery/

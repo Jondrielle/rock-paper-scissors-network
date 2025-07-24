@@ -1,0 +1,99 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "Client.h"
+#include "JSONReaderThread.h"
+
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+__fastcall JSONReaderThread::JSONReaderThread(TIdTCPClient *AClient, TForm *AForm)
+    : TThread(true),filePath(path)  // true tells it to create it as a background thread
+{
+    Client = AClient;
+    MainForm = AForm;
+    FreeOnTerminate = true;  // Automatically clean up the thread when it's done
+}
+
+
+void __fastcall JSONReaderThread::Execute()
+{
+    while (Client->Connected()) {
+        try {
+        	 if(!filePath.IsEmpty()){
+        	ShowMessage("File not found");
+                return "";
+        }
+        String jsonString = TFile::ReadAllText(filePath);
+        std::unique_ptr<TJSONObject> jsonRoot(static_cast<TJSONObject*>(TJSONObject::ParseJSONValue(jsonString)));
+        if(!jsonRoot){
+                ShowMessage("Json Data not found");
+                return "";
+        }
+
+        String section;
+        switch(phase){
+            case GamePhase::PREGAME:
+            section = "preGame";
+            break;
+            case GamePhase::ROUND:
+            section = "round";
+            break;
+            case GamePhase::POSTGAME:
+            section = "postGame";
+            break;
+        }
+
+        TJSONObject* sectionObject = jsonRoot->GetValue<TJSONObject>(section);
+        if(!sectionObject){
+                ShowMessage("Section not found");
+                return "";
+        }
+
+         if(!sectionObject->TryGetValue<String>(key)){
+                return sectionObject->TryGetValue<String>(key);
+        }else{
+        	ShowMessage("Key not found in section: " + section);
+            return "";
+        }
+        } catch (Exception &e) {
+            break;  // Break out of the loop if an error occurs
+        }
+    }
+}
+
+void __fastcall JSONReaderThread::ParsingMessage(const String &serverMessage){
+	TStringList *message = new TStringList();
+        try{
+                message->Delimiter = ' ';
+                message->StrictDelimiter = true;
+                message->DelimitedText = serverMessage;
+
+                for(int i = 0; i < message->Count;i++){
+                    TStringList *keyValue = new TStringList();
+                    try{
+                        keyValue->Delimiter = ':';
+                        keyValue->StrictDelimiter = true;
+                        keyValue->DelimitedText = message->Strings[i];
+
+                        String key = keyValue->Strings[0];
+                        String value = keyValue->Strings[1];
+
+                        if(key == "PlayerScore"){
+                                Form2->SetPlayerScore(value);
+                        }
+                        else if(key == "OpponentScore") {
+                                Form2->SetOpponentScore(value);
+                        }
+                        else if(key == "Winner"){
+                                Form2->SetWinner(value);
+                        }
+                        else if(key == "Round"){
+                                Form2->SetRoundCount(value);
+                        }
+                    }catch(Exception &e){}
+                }
+        }catch(Exception &e){}
+
+}

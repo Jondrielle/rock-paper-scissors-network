@@ -1,0 +1,124 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 400
+  ClientWidth = 716
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object GameTitle: TLabel
+    StyledSettings = [Family, FontColor]
+    Position.Y = 8.000000000000000000
+    Size.Width = 460.000000000000000000
+    Size.Height = 81.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 35.000000000000000000
+    TextSettings.Font.StyleExt = {00060000000100000004000000}
+    TextSettings.HorzAlign = Center
+    Text = 'ROCK PAPER SCISSORS'
+    TabOrder = 0
+  end
+  object Memo1: TMemo
+    Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+    DataDetectorTypes = []
+    Position.X = 308.000000000000000000
+    Position.Y = 258.000000000000000000
+    Size.Width = 400.000000000000000000
+    Size.Height = 126.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 396.000000000000000000
+    Viewport.Height = 122.000000000000000000
+  end
+  object ConnectToServer: TButton
+    Position.X = 148.000000000000000000
+    Position.Y = 344.000000000000000000
+    Size.Width = 144.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    Text = 'ConnectToServer'
+    OnClick = ConnectToServerClick
+  end
+  object RockButton: TButton
+    Position.X = 8.000000000000000000
+    Position.Y = 150.000000000000000000
+    Size.Width = 100.000000000000000000
+    Size.Height = 100.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+    Text = 'Rock'
+    OnClick = RockButtonClick
+  end
+  object PaperButton: TButton
+    Position.X = 176.000000000000000000
+    Position.Y = 150.000000000000000000
+    Size.Width = 100.000000000000000000
+    Size.Height = 100.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Text = 'Paper'
+    OnClick = PaperButtonClick
+  end
+  object ScissorsButton: TButton
+    StyleName = 'ScissorsButton'
+    Position.X = 340.000000000000000000
+    Position.Y = 150.000000000000000000
+    Size.Width = 100.000000000000000000
+    Size.Height = 100.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 4
+    Text = 'Scissors'
+    OnClick = ScissorsButtonClick
+  end
+  object PlayerScore: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 304.000000000000000000
+    Size.Width = 140.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Player Score:'
+    TabOrder = 8
+  end
+  object OpponentScore: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 320.000000000000000000
+    Size.Width = 140.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Opponent Score:'
+    TabOrder = 7
+  end
+  object Label1: TLabel
+    Position.X = 224.000000000000000000
+    Position.Y = 120.000000000000000000
+    Size.Width = 1.000000000000000000
+    Size.Height = 185.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Label1'
+    TabOrder = 10
+  end
+  object Winner: TLabel
+    Position.X = 156.000000000000000000
+    Position.Y = 288.000000000000000000
+    Text = 'Winner'
+    TabOrder = 11
+  end
+  object RoundCount: TLabel
+    Position.X = 200.000000000000000000
+    Position.Y = 112.000000000000000000
+    Text = 'Round: 1'
+    TabOrder = 14
+  end
+  object IdTCPClient1: TIdTCPClient
+    OnConnected = IdTCPClient1Connected
+    ConnectTimeout = 0
+    Host = '127.0.0.1'
+    Port = 6090
+    ReadTimeout = -1
+    Left = 232
+    Top = 64
+  end
+end
